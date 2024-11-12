@@ -1,0 +1,203 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Web Scraper with Hugging Face</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Web Scraper with Hugging Face Summarization</h1>-->
+<!--    <input type="text" id="urlInput" placeholder="Enter URL">-->
+<!--    <button onclick="scrapeAndSummarize()">Submit</button>-->
+<!--    <h2>Summary:</h2>-->
+<!--    <p id="summary"></p>-->
+
+<!--    <script>-->
+<!--        async function scrapeAndSummarize() {-->
+<!--            const url = document.getElementById('urlInput').value;-->
+<!--            const response = await fetch('/scrape', {-->
+<!--                method: 'POST',-->
+<!--                headers: {-->
+<!--                    'Content-Type': 'application/json'-->
+<!--                },-->
+<!--                body: JSON.stringify({ url })-->
+<!--            });-->
+<!--            const data = await response.json();-->
+<!--            if (data.error) {-->
+<!--                document.getElementById('summary').innerText = data.error;-->
+<!--            } else {-->
+<!--                document.getElementById('summary').innerText = data.summary;-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+<!--Girafee Image                        -->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Object Detection</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Object Detection</h1>-->
+<!--    <input type="file" id="fileInput">-->
+<!--    <button onclick="detectObjects()">Detect Objects</button>-->
+<!--    <div id="result"></div>-->
+
+<!--    <script>-->
+<!--        function detectObjects() {-->
+<!--            const fileInput = document.getElementById('fileInput');-->
+<!--            const file = fileInput.files[0];-->
+<!--            if (file) {-->
+<!--                const formData = new FormData();-->
+<!--                formData.append('file', file);-->
+
+<!--                fetch('/detect_objects', {-->
+<!--                    method: 'POST',-->
+<!--                    body: formData-->
+<!--                })-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    const resultDiv = document.getElementById('result');-->
+<!--                    resultDiv.innerHTML = ''; // Clear previous results-->
+
+<!--                    // Decode base64-encoded image data-->
+<!--                    const img = document.createElement('img');-->
+<!--                    img.src = 'data:image/jpeg;base64,' + data.image;-->
+<!--                    resultDiv.appendChild(img);-->
+
+<!--                    // Display detection results-->
+<!--                    data.detections.forEach(result => {-->
+<!--                        const label = result.label;-->
+<!--                        const confidence = result.score;-->
+
+<!--                        const resultItem = document.createElement('div');-->
+<!--                        resultItem.innerHTML = `<p>Label: ${label}, Confidence: ${confidence}</p>`;-->
+<!--                        resultDiv.appendChild(resultItem);-->
+<!--                    });-->
+<!--                })-->
+<!--                .catch(error => {-->
+<!--                    console.error('Error:', error);-->
+<!--                });-->
+<!--            } else {-->
+<!--                alert('Please select a file.');-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Web Scraper</title>-->
+<!--    <script>-->
+<!--        function scrapeAndSummarize() {-->
+<!--            const url = document.getElementById('urlInput').value;-->
+<!--            fetch('/scrape', {-->
+<!--                method: 'POST',-->
+<!--                headers: {-->
+<!--                    'Content-Type': 'application/json'-->
+<!--                },-->
+<!--                body: JSON.stringify({ url: url })-->
+<!--            })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                if (data.error) {-->
+<!--                    document.getElementById('result').innerText = 'Error: ' + data.error;-->
+<!--                } else {-->
+<!--                    const summary = data.summary[0];  // Assuming the first element contains the main summary-->
+<!--                    let resultHTML = '<h3>Summary:</h3>';-->
+<!--                    resultHTML += '<ul>';-->
+<!--                    summary.forEach(item => {-->
+<!--                        resultHTML += `<li><strong>${item.label}</strong>: ${item.score}</li>`;-->
+<!--                    });-->
+<!--                    resultHTML += '</ul>';-->
+<!--                    document.getElementById('result').innerHTML = resultHTML;-->
+<!--                }-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                console.error('Error:', error);-->
+<!--                document.getElementById('result').innerText = 'Error: ' + error;-->
+<!--            });-->
+<!--        }-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Web Scraper</h1>-->
+<!--    <input type="text" id="urlInput" placeholder="Enter URL to scrape" />-->
+<!--    <button onclick="scrapeAndSummarize()">Scrape and Summarize</button>-->
+<!--    <div id="result"></div>-->
+<!--</body>-->
+<!--</html>-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Chat with LM Studio</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Ask a Question</h1>-->
+<!--    <form action="/ask" method="post">-->
+<!--        <label for="text">Your Question:</label><br>-->
+<!--        <input type="text" id="text" name="text" required><br><br>-->
+<!--        <input type="submit" value="Submit">-->
+<!--    </form>-->
+<!--    {% if question %}-->
+<!--        <h2>Question:</h2>-->
+<!--        <p>{{ question }}</p>-->
+<!--        <h2>Answer:</h2>-->
+<!--        <p>{{ answer }}</p>-->
+<!--    {% endif %}-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat with LM Studio</title>
+</head>
+<body>
+    <h1>Prepare Content</h1>
+    <form action="/prepare" method="post">
+        <label for="url">Website URL:</label><br>
+        <input type="text" id="url" name="url" required><br><br>
+        <input type="submit" value="Prepare">
+    </form>
+
+    {% if message %}
+        <p style="color:green">{{ message }}</p>
+    {% endif %}
+
+    {% if error %}
+        <p style="color:red">{{ error }}</p>
+    {% endif %}
+
+    <h1>Ask a Question</h1>
+    <form action="/ask" method="post">
+        <label for="text">Your Question:</label><br>
+        <input type="text" id="text" name="text" required><br><br>
+        <input type="submit" value="Ask">
+    </form>
+    {%if url %}
+        <p>{{ url }}</p>
+    {% endif %}
+
+    {% if question and answer %}
+        <h2>Question:</h2>
+        <p>{{ question }}</p>
+        <h2>Answer:</h2>
+        <p>{{ answer }}</p>
+    {% endif %}
+</body>
+</html>
+
+
+
+
+
+
+

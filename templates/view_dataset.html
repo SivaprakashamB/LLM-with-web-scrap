@@ -1,0 +1,70 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>View Dataset</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Dataset</h1>-->
+<!--    {{ dataset_html|safe }}-->
+<!--    <a href="/">Back to Home</a>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Dataset</title>
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            margin: 0 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            color: #007bff;
+        }
+        .pagination a.active {
+            background-color: #007bff;
+            color: white;
+            border: 1px solid #007bff;
+        }
+        .pagination a.disabled {
+            color: #ddd;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dataset</h1>
+    {{ dataset_html|safe }}
+
+    <div class="pagination">
+        {% if page > 1 %}
+            <a href="{{ url_for('view_dataset', page=page-1) }}">&laquo; Previous</a>
+        {% else %}
+            <a class="disabled">&laquo; Previous</a>
+        {% endif %}
+
+        {% for p in range(1, total_pages + 1) %}
+            {% if p == page %}
+                <a href="{{ url_for('view_dataset', page=p) }}" class="active">{{ p }}</a>
+            {% else %}
+                <a href="{{ url_for('view_dataset', page=p) }}">{{ p }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page < total_pages %}
+            <a href="{{ url_for('view_dataset', page=page+1) }}">Next &raquo;</a>
+        {% else %}
+            <a class="disabled">Next &raquo;</a>
+        {% endif %}
+    </div>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>
